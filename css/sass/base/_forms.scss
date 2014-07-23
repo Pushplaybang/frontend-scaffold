@@ -1,0 +1,251 @@
+
+
+// ToDo - old as shit - revisit
+
+form {
+  /* margin: 0; */
+  padding: 1.5em 0 0 0;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  border: 0;
+  border-bottom: 1px solid #eee;
+  color: #333333;
+  display: block;
+  position: relative;
+  padding: 0;
+  white-space: normal; /* 2 */
+  width: 100%;
+  *margin-left: -7px; /* 3 */
+  margin-bottom: 30px;
+}
+
+legend small {
+/*  font-size: 15px;*/
+  color: #999999;
+}
+
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.5em;
+}
+
+input,
+button,
+select,
+textarea {
+/*  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+}
+
+label {
+  display: block;
+  height: auto;
+  margin: 0;
+  padding: 0 0 1.5em 0;
+}
+
+input,
+textarea,
+select{
+  display: inline-block;
+  width: 100%;
+  padding: 0.5em 0.75em;
+  margin-bottom: 22px;
+  color: #555;
+  border: 1px solid #CCC;
+  clear: both;
+}
+
+label input,
+label textarea {
+  display: block;
+  margin: 0;
+  position: relative;
+}
+
+label select {
+  float: right;
+  margin: 0;
+}
+
+button,
+.button,
+input[type="image"],
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 7px 0;
+  *margin-top: 7px;/* IE7 */
+  line-height: normal;
+  cursor: pointer;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 0 \9;
+  /* IE9 and down */
+
+}
+
+input[type="file"] {
+  width: auto;
+  padding: initial;
+  line-height: initial;
+  border: initial;
+  background-color: #ffffff;
+  background-color: initial;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  margin-top: 5px;
+  float: right;
+}
+
+select,
+input[type="file"] {
+/*  height: 2.5em;*/
+  /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  *margin-top: 4px;
+  /* For IE7, add top margin to align select with labels */
+  line-height: 1.667em;
+}
+
+select {
+  width: 220px;
+  background-color: #ffffff;
+}
+select[multiple],
+select[size] {
+  height: auto;
+}
+
+input[type="image"] {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+textarea {
+  height: auto;
+  box-sizing: border-box;
+}
+input[type="hidden"] {
+  display: none;
+}
+input,
+textarea {
+/*  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+}
+input:focus,
+textarea:focus {
+  border-color:#52A8EC;
+  border-color: rgba(82, 168, 236, 0.8);
+/*  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 2px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 2px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 2px rgba(82, 168, 236, 0.6);*/
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+}
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+select:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  outline: thin dotted #333;
+  outline: 3px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+input,
+textarea {
+  margin-left: 0;
+}
+
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  background-color: #eeeeee;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+input:focus:required:invalid,
+textarea:focus:required:invalid,
+select:focus:required:invalid {
+  color: #b94a48;
+  border-color: #ee5f5b;
+}
+
+input:focus:required:invalid:focus,
+textarea:focus:required:invalid:focus,
+select:focus:required:invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 2px #f8b9b7;
+  -moz-box-shadow: 0 0 2px #f8b9b7;
+  box-shadow: 0 0 2px #f8b9b7;
+}
+
+:-moz-placeholder {
+  color: #999999;
+}
+
+::-webkit-input-placeholder {
+  color: #999999;
+}
+
+input[type="hidden"],
+input.hidden,
+.gform_hidden,
+.gform_validation_container {
+    display: none;
+    visibility: hidden;
+    background:red;
+}
+
+form ul {
+  list-style:none;
+  padding-left:0px;
+}
+
+input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+/* mobile Specific Styles */
+@media screen and (max-width: $mobilebreak) {
+
+}
+
+/* Tablet Specific Styles */
+@media screen and (min-width: $mobilebreak) and (max-width: $tabletbreak) {
+
+}
+
+/* Desktop Specific Styles */
+@media screen and (min-width: $tabletbreak) {
+
+}

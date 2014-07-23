@@ -1,0 +1,74 @@
+/* @group links & active Components */
+
+a {
+	color: #f50;
+	text-decoration: none;
+	font-weight: 400;
+}
+
+a:hover, a:active, a:focus {
+	color: #FF005C;
+	text-decoration: none;
+	outline: 0;
+}
+
+
+/* Buttons */
+button,
+.button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="image"]  {
+    background: transparent;
+    border: 0.2em solid;
+    color: #222;
+    clear: both;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 2.4em;
+    width: auto;
+    height: 2.70em;
+    margin: 0 0.5em 1.8333em 0; /*adjust to maintain baseline*/
+    padding: 0 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.button {
+	margin-top: 1.5em;
+}
+
+button:hover,
+.button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+input[type="image"]:hover {
+	color: #FF005C;
+	border-color:#FF005C;
+}
+
+button:active,
+.button:active,
+input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active,
+input[type="image"]:active {
+	color: #FF005C;
+	border-color:#FF005C;
+}
+
+a.socialicons {
+	font-size: 13px;
+	line-height: 20px;
+	text-align: center;
+	display: inline-block;
+	width: 23px;
+	padding: 0;
+	margin: 3px 0 3px 5px;
+/*	border: 1px solid;
+	-webkit-border-radius: 100px;
+	-moz-border-radius: 100px;
+	border-radius: 100px;*/
+}

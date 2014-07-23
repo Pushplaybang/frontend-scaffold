@@ -1,0 +1,66 @@
+/* Type Setup */
+$body-font-size:    16px;
+$body-line-height:  1.5;
+$scale-factor:      1.333;
+$ie8compatability:  true;
+ 
+html { @include khtml(); }
+body { @include kbody(); }
+
+/* Typography */
+h1,h2,h3,h4,h5,h6 {text-transform: uppercase;}
+h1 { @include ktype(5, 2, 1); }
+h2 { @include ktype(4, 1, 1); }
+h3 { @include ktype(3, 1, 1); }
+h4 { @include ktype(2, 1, 1); }
+h5 { @include ktype(1, 1, 0); }
+h6 { 
+    @include ktype(0, 1, 0);
+    text-transform: capitalize;
+}
+p, ul, ol,dl {@include ktype(0,0,1);}
+small { 
+  display: inline-block;
+  @include ktype(-1,0,0); 
+}
+
+//  TODO : fix this
+h1, h2, h3, h4, h5, h6  {
+  color: #222222;
+  font-weight: 400;
+}
+
+
+
+
+
+
+
+
+//TODO : 
+// blockquote {
+//    margin: 1.5em 2em;
+//   font-size: 1.5em;
+//   font-style: italic;
+//   padding: 0.375em 1.5em;
+//   border-left: 1px dotted #CCC;
+//   p {
+//     margin-top: 0;
+//   }
+// }
+
+
+/* mobile Specific Styles */
+@media screen and (max-width: $mobilebreak) {
+
+}
+
+/* Tablet Specific Styles */
+@media screen and (min-width: $mobilebreak) and (max-width: $tabletbreak) {
+
+}
+
+/* Desktop Specific Styles */
+@media screen and (min-width: $tabletbreak) {
+
+}

@@ -1,0 +1,26 @@
+
+dt {
+    font-weight: 900;
+}
+
+dd {
+    margin: 0 0 0 3em;
+    font-style: italic;
+    color: #444;
+}
+
+ol ul, ul ol, ul ul, ol ol {
+  margin: 0;
+}
+
+ol ol {
+  list-style-type: lower-alpha;
+}
+
+nav ul,
+nav ol {
+    list-style: none;
+    list-style-image: none;
+    padding-left: 0;
+    margin: 0;
+}
