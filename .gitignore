@@ -43,3 +43,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+
+/css/sass/lib
+
+/js/lib
