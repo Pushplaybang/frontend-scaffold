@@ -19,11 +19,11 @@ module.exports = function(grunt) {
 		},
 
 		/*
-		Auto run / default tasks 
-		- - - - - - - - - - - - - - - - - - - - - -
-		these are handled in the correct order by the grunt 
-		watch task, these are all triggered by simply running
-		the grunt command.
+			Auto run / default tasks 
+			- - - - - - - - - - - - - - - - - - - - - -
+			these are handled in the correct order by the grunt 
+			watch task, these are all triggered by simply running
+			the grunt command.
 		
 		TASK : Compile SASS */
 		sass 	: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 					cwd 	: '<%= dirs.sass %>/', 			// search relative to this path
 					src 	: ['*.scss'],					// pattern to match
 					dest 	: '<%= dirs.css %>/',			// destination path
-					ext 	: '.css'						// Dest filepaths will have this extension.
+					ext 	: '.min.css'					// Dest filepaths will have this extension.
 				}]
 			}
 		},
@@ -77,6 +77,7 @@ module.exports = function(grunt) {
 					'<%= dirs.jsLib %>/underscore.js',
 					'<%= dirs.jsLib %>/velocity.js',
 					'<%= dirs.jsLib %>/velocityui.js',
+					'<%= dirs.jsLib %>/fastclick.js',
 				],
 				dest 	: '<%= dirs.jsBuild %>/libs.js',
 			},
@@ -122,10 +123,11 @@ module.exports = function(grunt) {
 		},
 
 		/* 
-		NON Automated Tasks  
-		- - - - - - - - - - - - - - - - - - - - - -
-		these need to run explicity from the command line 
-		by running grunt <task-name>
+			NON Automated Tasks  
+			- - - - - - - - - - - - - - - - - - - - - -
+			these need to run explicity from the command line 
+			by running grunt <task-name>, look for the regstered task names
+			at the end of the file.
 		*/
 
 		// Testing Tasks
@@ -158,10 +160,10 @@ module.exports = function(grunt) {
 		    		destPrefix: 'css/sass/lib'
 		    	},
 		    	files : {
-		    		'_normalize.scss' : 'normalize-css/:main',
-		    		'_knife.sass' : 'knife/_knife.sass',
-		    		'susy' : 'susy/sass/*',
-		    		'breakpoint' : 'compass-breakpoint/stylesheets/*',
+		    		'_normalize.scss' : 	'normalize-css/:main',
+		    		'_knife.sass' : 		'knife/_knife.sass',
+		    		'susy' : 				'susy/sass/*',
+		    		'breakpoint' : 			'compass-breakpoint/stylesheets/*',
 		    	}
 		    }
 		}
