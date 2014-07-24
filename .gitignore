@@ -1,11 +1,14 @@
 # Project Files
 config.codekit
 .sass-cache
+.bowerrc
 bower_components/
-node_modules
+node_modules/
 
 ### OSX ###
 .DS_Store
+*/.DS_Store
+.DS_Store?
 .AppleDouble
 .LSOverride
 
@@ -45,5 +48,4 @@ $RECYCLE.BIN/
 
 
 /css/sass/lib
-
 /js/lib
