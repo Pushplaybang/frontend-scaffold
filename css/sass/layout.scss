@@ -16,10 +16,36 @@
 
 /*
 
-SHAME FILE - This is for quick and dirty fixes and good
-old IE that should be worked into the neatness above
-where possible,
+	SHAME FILE - This is for quick and dirty fixes and good
+	old IE that should be worked into the neatness above
+	where possible,
 
 */
 
 @import 'layout/shame.scss';
+
+body {
+	@include breakpoint($tabletbreak) {
+		background: #fff;
+	}
+}
+
+.fuck {
+	margin:0;
+}
+ 
+
+h1 {
+	color: #111;
+	@include breakpoint($mobilebreak) {
+		color:red;
+	}
+	@include breakpoint($tabletbreak) {
+		color: #313131;
+	}
+}
+
+.fuckoff.more {
+	padding:20px;
+}
+

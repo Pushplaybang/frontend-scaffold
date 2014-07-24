@@ -27,12 +27,13 @@ module.exports = function(grunt) {
 		
 		TASK : Compile SASS */
 		sass 	: {
-			options : {                       			
-				style 			: 'expanded',
-				trace 			: true,
+			options : {   
+				// require 		: 'sass-media_query_combiner', // FIXME: NOT WORKING be sure to have installed the GEM : gem install sass-media_query_combiner                    			
+				style 			: 'compressed',
+				// trace 		: true,
 				sourcemap 		: true,
 				cacheLocation 	: '<%= dirs.sass %>/.sass-cache',
-				noCache 		: false
+				noCache 		: false,
 			 },
 			dist 	: {
 				files 	: [{
@@ -107,10 +108,11 @@ module.exports = function(grunt) {
 		watch 	: {
 			css 	: {
 				options: {
-					livereload: true,
+					livereload: true, // will require the browser extension to be installed
+				    spawn: false // may cause errors
 				},
 				files 	: 'css/sass/*.scss',
-				tasks	: ['sass','cmq','cssmin']
+				tasks	: ['sass']
 			},
 			js 		: {
 				files 	: ['<%= dirs.jsPlugins %>/*.js','<%= dirs.jsLib %>/*.js'],
@@ -148,11 +150,11 @@ module.exports = function(grunt) {
 		            destPrefix: 'js/lib'
 		        },
 		        files: {
-		            'jquery.js': 		'jquery/dist/jquery.js',
-		            'underscore.js': 	'underscore/underscore.js',
-		            'velocity.js': 		'velocity/jquery.velocity.js',
-		            'velocityui.js': 	'velocity/velocity.ui.js',
-		            'fastclick.js': 	'fastclick/:main'
+		            'jquery.js'			: 'jquery/dist/jquery.js',
+		            'underscore.js'		: 'underscore/underscore.js',
+		            'velocity.js'		: 'velocity/jquery.velocity.js',
+		            'velocityui.js'		: 'velocity/velocity.ui.js',
+		            'fastclick.js'		: 'fastclick/:main'
 		        }
 		    },
 		    sassPlugins: {
@@ -160,10 +162,10 @@ module.exports = function(grunt) {
 		    		destPrefix: 'css/sass/lib'
 		    	},
 		    	files : {
-		    		'_normalize.scss' : 	'normalize-css/:main',
-		    		'_knife.sass' : 		'knife/_knife.sass',
-		    		'susy' : 				'susy/sass/*',
-		    		'breakpoint' : 			'compass-breakpoint/stylesheets/*',
+		    		'_normalize.scss' 	: 'normalize-css/:main',
+		    		'_knife.sass' 		: 'knife/_knife.sass',
+		    		'susy' 				: 'susy/sass/*',
+		    		'breakpoint' 		: 'compass-breakpoint/stylesheets/*'
 		    	}
 		    }
 		}
@@ -188,7 +190,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint'); 			// https://github.com/gruntjs/grunt-contrib-jshint
 
 	/* Setup Tasks */
-	grunt.registerTask('default',['sass', 'cmq','cssmin','concat','uglify', 'watch']);	//  Default Tasks to run on start
+	grunt.registerTask('default',['sass','concat','uglify', 'watch']);	//  Default Tasks to run on start
+	grunt.registerTask('cssoptimize', ['cmq','cssmin']); 
 	grunt.registerTask('testjs', ['jshint']);
 	grunt.registerTask('buildit', ['bowercopy']);
 
