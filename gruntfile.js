@@ -54,13 +54,6 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// TASK : copy files to the correct directory
-		// copy 	: {
-		// 	main : {
-		// 		src: '<%= dirs.cssBuild %>/*.map',
-		// 		dest: '../<%= dirs.css %>/'
-		// 	}
-		// },
 
 		// TASK : minfy css as cmq task uncompresses the process sass
 		cssmin: {
@@ -112,6 +105,9 @@ module.exports = function(grunt) {
 		// TASK : Watch files for changes and run tasks
 		watch 	: {
 			css 	: {
+				options: {
+					livereload: true,
+				},
 				files 	: 'css/sass/*.scss',
 				tasks	: ['sass','cmq','cssmin']
 			},
@@ -163,7 +159,7 @@ module.exports = function(grunt) {
 		    	},
 		    	files : {
 		    		'_normalize.scss' : 'normalize-css/:main',
-		    		'_knife.scss' : 'knife/_knife.sass',
+		    		'_knife.sass' : 'knife/_knife.sass',
 		    		'susy' : 'susy/sass/*',
 		    		'breakpoint' : 'compass-breakpoint/stylesheets/*',
 		    	}
@@ -192,7 +188,7 @@ module.exports = function(grunt) {
 	/* Setup Tasks */
 	grunt.registerTask('default',['sass', 'cmq','cssmin','concat','uglify', 'watch']);	//  Default Tasks to run on start
 	grunt.registerTask('testjs', ['jshint']);
-	grunt.registerTask('build', ['bowercopy']);
+	grunt.registerTask('buildit', ['bowercopy']);
 
 
 }; // end Grunt File
