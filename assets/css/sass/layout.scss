@@ -23,29 +23,3 @@
 */
 
 @import 'layout/shame.scss';
-
-body {
-	@include breakpoint($tabletbreak) {
-		background: #fff;
-	}
-}
-
-.fuck {
-	margin:0;
-}
- 
-
-h1 {
-	color: #111;
-	@include breakpoint($mobilebreak) {
-		color:red;
-	}
-	@include breakpoint($tabletbreak) {
-		color: #313131;
-	}
-}
-
-.fuckoff.more {
-	padding:20px;
-}
-

@@ -2,8 +2,13 @@
 config.codekit
 .sass-cache
 .bowerrc
-bower_components/
-node_modules/
+/assets/bower_components/
+/assets/node_modules/
+/assets/css/sass/lib
+/assets/js/lib/*
+/assets/js/lib/*
+/assets/js/build/*
+/public/*
 
 ### OSX ###
 .DS_Store
@@ -46,6 +51,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+	
 
-/css/sass/lib
-/js/lib
+

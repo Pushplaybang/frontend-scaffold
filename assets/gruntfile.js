@@ -12,11 +12,21 @@ module.exports = function(grunt) {
 		dirs 	: {
 			sass 		: 'css/sass',
 			css 		: 'css',
+			js 			: 'js',
 			jsLib 		: 'js/lib',
 			jsPlugins	: 'js/plugins',
 			jsBuild 	: 'js/build',
-			js 			: 'js'
+			img 		: 'img',
+			favicon 	: 'favicon',
+			public 		: '../public',
+			publicCss 	: '../public/css',
+			publicJs	: '../public/js',
+			publicImg	: '../public/img',
+			publicFav	: '../public/favicon',
 		},
+
+
+
 
 		/*
 			Auto run / default tasks 
@@ -43,27 +53,6 @@ module.exports = function(grunt) {
 					dest 	: '<%= dirs.css %>/',			// destination path
 					ext 	: '.min.css'					// Dest filepaths will have this extension.
 				}]
-			}
-		},
-
-		// TASK : combine all the media queries
-		cmq 	: {
-			your_target: {
-				files: {
-					'<%= dirs.css %>'	: ['<%= dirs.css %>/*.css','!<%= dirs.css %>/*.min.css']
-				}
-			}
-		},
-
-
-		// TASK : minfy css as cmq task uncompresses the process sass
-		cssmin: {
-			minify: {
-				expand: true,
-				cwd: '<%= dirs.css %>/',
-				src: ['*.css', '!*.min.css'],
-				dest: '<%= dirs.css %>',
-				ext: '.min.css'
 			}
 		},
 
@@ -108,8 +97,8 @@ module.exports = function(grunt) {
 		watch 	: {
 			css 	: {
 				options: {
-					livereload: true, // will require the browser extension to be installed
-				    spawn: false // may cause errors
+					livereload 	: true, // will require the browser extension to be installed
+				    spawn 		: false // may cause errors
 				},
 				files 	: 'css/sass/*.scss',
 				tasks	: ['sass']
@@ -124,6 +113,9 @@ module.exports = function(grunt) {
 			}
 		},
 
+
+
+
 		/* 
 			NON Automated Tasks  
 			- - - - - - - - - - - - - - - - - - - - - -
@@ -132,13 +124,47 @@ module.exports = function(grunt) {
 			at the end of the file.
 		*/
 
-		// Testing Tasks
+		// Test Js
 		testjs 	: {
 			jshint: {
 			    all: ['js/*.js', '!js/plugins.min.js', '!js/lib.min.js']
 			  }
 		}, 
 
+		// TASK : combine all the media queries
+		cmq 	: {
+			your_target: {
+				files: {
+					'<%= dirs.css %>'	: ['<%= dirs.css %>/*.css','!<%= dirs.css %>/*.min.css']
+				}
+			}
+		},
+
+		// TASK : minfy css as cmq task uncompresses the process sass
+		cssmin: {
+			minify: {
+				expand: true,
+				cwd: '<%= dirs.css %>/',
+				src: ['*.css', '!*.min.css'],
+				dest: '<%= dirs.css %>',
+				ext: '.min.css'
+			}
+		},
+
+		// Image Optimazation task
+		imagemin: {                          		
+			doimages : {                         	 	
+				options: {                       	
+					optimizationLevel: 3,
+				},
+				files: [{
+					expand: true,                  
+					cwd: 'src/',                   
+					src: [' **/*.{png,jpg,gif}'],   
+					dest: 'dist/'                  
+				}]
+			}
+		},
 
 		//Bower Build
 		bowercopy: {
@@ -171,10 +197,13 @@ module.exports = function(grunt) {
 		}
 
 	});
+	
+
+
 
 	/* 
-	Set up Grunt Plugin Dependencies 
-	- - - - - - - - - - - - - - - - - - - - - -
+		Set up Grunt Plugin Dependencies 
+		- - - - - - - - - - - - - - - - - - - - - -
 		NB : doing this explicity for easier 
 		control that autoloading 
 	*/
@@ -182,14 +211,26 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');				// https://github.com/gruntjs/grunt-contrib-cssmin
 	grunt.loadNpmTasks('grunt-combine-media-queries');		// https://github.com/buildingblocks/grunt-combine-media-queries
 	grunt.loadNpmTasks('grunt-contrib-copy');				// https://github.com/gruntjs/grunt-contrib-copy
+	grunt.loadNpmTasks('grunt-contrib-clean');				// https://github.com/gruntjs/grunt-contrib-clean
 	grunt.loadNpmTasks('grunt-bowercopy');					// https://github.com/timmywil/grunt-bowercopy
 	grunt.loadNpmTasks('grunt-contrib-concat');  			// https://www.npmjs.org/package/grunt-contrib-concat
 	grunt.loadNpmTasks('grunt-contrib-uglify');  			// https://www.npmjs.org/package/grunt-contrib-uglify
 	grunt.loadNpmTasks('grunt-contrib-watch');				// https://github.com/gruntjs/grunt-contrib-watch
 	grunt.loadNpmTasks('grunt-notify');						// https://github.com/dylang/grunt-notify
 	grunt.loadNpmTasks('grunt-contrib-jshint'); 			// https://github.com/gruntjs/grunt-contrib-jshint
+	grunt.loadNpmTasks('grunt-contrib-imagemin');			// https://github.com/gruntjs/grunt-contrib-imagemin
 
-	/* Setup Tasks */
+
+
+
+	/*
+		 Setup Tasks 
+		- - - - - - - - - - - - - - - - - - - - - -
+		grunt 				 	-  build all the basic assets and begin watch
+		grunt cssoptimize 		-  run a task that combines all our media queries and re minifies our CSS
+		grunt testjs			-  run jshint on OUR js code
+		grunt buildit 			-  copy out the basic dependancies from the bower_components folder
+	*/
 	grunt.registerTask('default',['sass','concat','uglify', 'watch']);	//  Default Tasks to run on start
 	grunt.registerTask('cssoptimize', ['cmq','cssmin']); 
 	grunt.registerTask('testjs', ['jshint']);
