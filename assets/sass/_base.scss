@@ -1,12 +1,14 @@
 /* This File Compiles all the partials for base.css, */
 
-/* Vars, Mixins and Libraries */
+/*Libraries */
 @import 'lib/_knife.sass';
 @import 'lib/breakpoint/_breakpoint.scss';
 @import 'lib/susy/_susy.scss';
-@import '_variables.scss';
-@import '_mixins.scss';
-@import '_classes.scss';
+
+/* Setup */
+@import '_setup_variables.scss';
+@import '_setup_mixins.scss';
+@import '_setup_classes.scss';
 
 // Essential components
 @import 'lib/_normalize.scss';
