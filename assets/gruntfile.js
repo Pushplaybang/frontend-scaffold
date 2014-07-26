@@ -10,19 +10,21 @@ module.exports = function(grunt) {
 		
 		/* SETUP :  directory paths */
 		dirs 	: {
-			sass 		: 'css/sass',
-			css 		: 'css',
+			sass 		: 'sass',
+			sassLib 	: 'sass/lib',
 			js 			: 'js',
 			jsLib 		: 'js/lib',
 			jsPlugins	: 'js/plugins',
 			jsBuild 	: 'js/build',
+			jsScripts	: 'js/scripts',
 			img 		: 'img',
-			favicon 	: 'favicon',
+			fav		 	: 'favicons',
 			public 		: '../public',
 			publicCss 	: '../public/css',
 			publicJs	: '../public/js',
 			publicImg	: '../public/img',
-			publicFav	: '../public/favicon',
+			publicFav	: '../public/favicons',
+			bower 		: 'bower_components'
 		},
 
 
@@ -48,10 +50,10 @@ module.exports = function(grunt) {
 			dist 	: {
 				files 	: [{
 					expand 	: true,
-					cwd 	: '<%= dirs.sass %>/', 			// search relative to this path
-					src 	: ['*.scss'],					// pattern to match
-					dest 	: '<%= dirs.css %>/',			// destination path
-					ext 	: '.min.css'					// Dest filepaths will have this extension.
+					cwd 	: '<%= dirs.sass %>/', 
+					src 	: ['*.scss'],									 
+					dest 	: '<%= dirs.publicCss %>/',						 
+					ext 	: '.min.css' 
 				}]
 			}
 		},
@@ -75,6 +77,14 @@ module.exports = function(grunt) {
 				src 	: '<%= dirs.jsPlugins %>/*.js',
 				dest 	: '<%= dirs.jsBuild %>/plugins.js'
 			},
+			doScripts : {
+				src 	: '<%= dirs.jsScripts %>/*.js',
+				dest 	: '<%= dirs.jsBuild %>/scripts.js'
+			},
+			doBuild : 	{
+				src 	: ['<%= dirs.jsBuild %>/*.js','!<%= dirs.jsBuild %>/all.js'],
+				dest 	: '<%= dirs.jsBuild %>/all.js'
+			}
 		},
 
 		// TASK : minify scripts 
@@ -86,8 +96,8 @@ module.exports = function(grunt) {
 				files: [{
 					expand 	: true,
 					cwd 	: '<%= dirs.jsBuild %>',
-					src 	: '*.js',
-					dest 	: '<%= dirs.js %>',
+					src 	: 'all.js',
+					dest 	: '<%= dirs.publicJs %>',
 					ext 	: '.min.js'
 				}]
 			}
@@ -100,16 +110,36 @@ module.exports = function(grunt) {
 					livereload 	: true, // will require the browser extension to be installed
 				    spawn 		: false // may cause errors
 				},
-				files 	: 'css/sass/*.scss',
+				files 	: ['<%= dirs.sass %>/*.scss','<%= dirs.sass %>/**/*.scss'],
 				tasks	: ['sass']
 			},
-			js 		: {
-				files 	: ['<%= dirs.jsPlugins %>/*.js','<%= dirs.jsLib %>/*.js'],
-				tasks 	: ['concat']
+			jslib 		: {
+				files 	: ['<%= dirs.jsLib %>/*.js'],
+				tasks 	: ['concat:doLib']
 			},
-			mini 	: {
-				files 	: '<%= dirs.jsBuild %>',
+			jsplugins 	: {
+				files 	: ['<%= dirs.jsPlugins %>/*.js'],
+				tasks 	: ['concat:doPlugins']
+			},
+			jsscripts 	: {
+				files 	: ['<%= dirs.jsScripts %>/*.js'],
+				tasks 	: ['concat:doScripts']
+			},
+			jsall 		: {
+				files 	: ['<%= dirs.jsLib %>/*.js','!<%= dirs.jsLib %>/all.js'],
+				tasks 	: ['concat:doBuild']
+			},
+			mini 		: {
+				files 	: '<%= dirs.jsBuild %>/all.js',
 				tasks 	: ['uglify']
+			},
+			images  	: {
+				files 	: '<%= dirs.img %>/*',
+				tasks 	: ['imagemin:doImages']
+			},
+			fav  		: {
+				files 	: '<%= dirs.fav %>/*',
+				tasks 	: ['imagemin:doFav', 'copy']
 			}
 		},
 
@@ -126,16 +156,28 @@ module.exports = function(grunt) {
 
 		// Test Js
 		testjs 	: {
-			jshint: {
-			    all: ['js/*.js', '!js/plugins.min.js', '!js/lib.min.js']
-			  }
+			options: {
+                   curly: true,
+                   eqeqeq: false,
+                   eqnull: false,
+                   browser: true,
+                   force: true,
+                   globals: {
+                           jQuery: true,
+                   },
+                   '-W032': true, // unnecessary semicolon
+                   '-W069': true, // dot notation
+                   '-W041': true, // Use '{a}' to compare with '{b}'
+                   '-W084': true // Expected a conditional, not assignment
+           },
+			all: ['js/scripts/*.js'],  
 		}, 
 
 		// TASK : combine all the media queries
 		cmq 	: {
-			your_target: {
+			doIt: {
 				files: {
-					'<%= dirs.css %>'	: ['<%= dirs.css %>/*.css','!<%= dirs.css %>/*.min.css']
+					'<%= dirs.publicCss %>'	: ['<%= dirs.publicCss %>/*.css','!<%= dirs.publicCss %>/*.min.css']
 				}
 			}
 		},
@@ -144,36 +186,59 @@ module.exports = function(grunt) {
 		cssmin: {
 			minify: {
 				expand: true,
-				cwd: '<%= dirs.css %>/',
+				cwd: '<%= dirs.publicCss %>/',
 				src: ['*.css', '!*.min.css'],
-				dest: '<%= dirs.css %>',
+				dest: '<%= dirs.publicCss %>',
 				ext: '.min.css'
 			}
 		},
 
 		// Image Optimazation task
 		imagemin: {                          		
-			doimages : {                         	 	
+			doImages : {                         	 	
 				options: {                       	
 					optimizationLevel: 3,
 				},
 				files: [{
 					expand: true,                  
-					cwd: 'src/',                   
+					cwd: '<%= dirs.img %>',                   
 					src: [' **/*.{png,jpg,gif}'],   
-					dest: 'dist/'                  
+					dest: '<%= dirs.publicImg %>'                  
+				}]
+			},
+			doFav : {                         	 	
+				options: {                       	
+					optimizationLevel: 3,
+				},
+				files: [{
+					expand: true,                  
+					cwd: '<%= dirs.fav %>',                   
+					src: [' **/*.{png,jpg,gif}'],   
+					dest: '<%= dirs.publicFav %>'                  
 				}]
 			}
 		},
 
-		//Bower Build
+		// Copy Fav XML
+		copy: {
+			main: {
+				files: [{
+					expand: true, 
+					src: ['<%= dirs.fav%>/*.xml'], 
+					dest: '<%= dirs.public %>/', 
+					filter: 'isFile'
+				}]
+			}
+		},
+
+		// Bower Build
 		bowercopy: {
 		    options: {
-		        srcPrefix: 'bower_components'
+		        srcPrefix: '<%= dirs.bower %>'
 		    },
 		    jslibs: {
 		        options: {
-		            destPrefix: 'js/lib'
+		            destPrefix: '<%= dirs.jsLib %>'
 		        },
 		        files: {
 		            'jquery.js'			: 'jquery/dist/jquery.js',
@@ -185,7 +250,7 @@ module.exports = function(grunt) {
 		    },
 		    sassPlugins: {
 		    	options: {
-		    		destPrefix: 'css/sass/lib'
+		    		destPrefix: '<%= dirs.sassLib %>'
 		    	},
 		    	files : {
 		    		'_normalize.scss' 	: 'normalize-css/:main',
@@ -194,6 +259,7 @@ module.exports = function(grunt) {
 		    		'breakpoint' 		: 'compass-breakpoint/stylesheets/*'
 		    	}
 		    }
+		    //TODO: add essential js plugin deps IE : fitvids
 		}
 
 	});
@@ -205,7 +271,7 @@ module.exports = function(grunt) {
 		Set up Grunt Plugin Dependencies 
 		- - - - - - - - - - - - - - - - - - - - - -
 		NB : doing this explicity for easier 
-		control that autoloading 
+		control than autoloading 
 	*/
 	grunt.loadNpmTasks('grunt-contrib-sass');  				// https://github.com/gruntjs/grunt-contrib-sass
 	grunt.loadNpmTasks('grunt-contrib-cssmin');				// https://github.com/gruntjs/grunt-contrib-cssmin
@@ -224,17 +290,18 @@ module.exports = function(grunt) {
 
 
 	/*
-		 Setup Tasks 
+		Setup Tasks 
 		- - - - - - - - - - - - - - - - - - - - - -
 		grunt 				 	-  build all the basic assets and begin watch
 		grunt cssoptimize 		-  run a task that combines all our media queries and re minifies our CSS
 		grunt testjs			-  run jshint on OUR js code
 		grunt buildit 			-  copy out the basic dependancies from the bower_components folder
 	*/
-	grunt.registerTask('default',['sass','concat','uglify', 'watch']);	//  Default Tasks to run on start
+	grunt.registerTask('default',['sass','concat','uglify','imagemin','copy', 'watch']);	//  Default Tasks to run on start
 	grunt.registerTask('cssoptimize', ['cmq','cssmin']); 
 	grunt.registerTask('testjs', ['jshint']);
-	grunt.registerTask('buildit', ['bowercopy']);
+	grunt.registerTask('buildit', ['bowercopy','sass','concat','uglify','imagemin','copy',]);
+	grunt.registerTask('imgoptimize', ['imagemin', 'copy']);
 
 
 }; // end Grunt File
