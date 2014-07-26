@@ -28,11 +28,15 @@ This will copy the essential libraries and do the first build which will create 
 ```bash
 grunt
 ```
-to stat watching your project folders and files.
+to start watching your project folders and files.
 
 
 ### Now that you're watching....
-to add js plugins to the project drop the **unminified** versions into the `assets/js/plugins` folder, edit sass in the sass folder, and add any custom scripts into the `assets/js/scripts/` folder.  to add additional js libraries please edit the gruntfile.js and run `grunt buildit` again.  Lastly there is a `grunt testjs` tasks registered for testing your custom scripts.
+to add js plugins to the project drop the **unminified** versions into the `assets/js/plugins` folder, edit sass in the sass folder, and add any custom scripts into the `assets/js/scripts/` folder.  to add additional js libraries please edit the gruntfile.js and run `grunt buildit` again.  the `img` and `favicons` folders are also watched in assets and any images dropped in while `grunt` is running will be optimised and transfered to the public folder.
+
+Lastly there is a `grunt testjs` tasks registered for testing your custom scripts.
+
+
 
 
 
