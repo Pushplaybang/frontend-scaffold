@@ -1,8 +1,4 @@
-/* Type Setup */
-$body-font-size:    16px;
-$body-line-height:  1.5;
-$scale-factor:      1.333;
-$ie8compatability:  true;
+
  
 html { @include khtml(); }
 body { @include kbody(); }
