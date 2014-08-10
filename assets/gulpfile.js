@@ -97,10 +97,8 @@ gulp.task('sass', function() {
 		sourcemap: true,
 		sourcemapPath: '../assets/sass', 
 		errLogToConsole: false,
-		cacheLocation: 'sass/',
-        onError: function(err) {
-            return notify().write(err);
-        }}))
+		cacheLocation: 'sass/',}))
+	.on('error', function (err) { console.log(err.message); })
 	.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 	.pipe(rename({suffix: '.min'}))
 	.pipe(gulp.dest( dirs.publicCss ))
