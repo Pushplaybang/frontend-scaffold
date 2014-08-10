@@ -97,7 +97,7 @@ gulp.task('sass', function() {
 		sourcemap: true,
 		sourcemapPath: '../assets/sass', 
 		errLogToConsole: false,
-		cacheLocation: 'sass/',}))
+		cacheLocation: 'sass/.sass-cache/',}))
 	.on('error', function (err) { console.log(err.message); })
 	.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 	.pipe(rename({suffix: '.min'}))
@@ -119,6 +119,7 @@ gulp.task('scripts', function() {
   		dirs.jsPlugins+'**/*.js',
   		dirs.jsScripts+'**/*.js',
   	]).pipe(concat('all.js'))
+  	.on('error', function (err) { console.log(err.message); })
     .pipe(rename({
     	suffix: '.min'
 	}))
