@@ -1,7 +1,7 @@
 {
-  "name": "biggulp",
-  "version": "0.0.0",
-  "description": "gulp build process",
+  "name": "GulpFrontEnd",
+  "version": "0.0.1",
+  "description": "basic build process for setting up a project and processing sass, js and images.",
   "main": "gulpfile.js",
   "dependencies": {
     "gulp": "^3.8.7",
@@ -9,22 +9,24 @@
     "gulp-cache": "^0.2.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.3.4",
+    "gulp-filesize": "^0.0.6",
     "gulp-imagemin": "^0.6.2",
     "gulp-jshint": "^1.8.4",
     "gulp-livereload": "^2.1.0",
     "gulp-notify": "^1.4.2",
+    "gulp-order": "^1.1.1",
     "gulp-rename": "^1.2.0",
     "gulp-ruby-sass": "^0.7.1",
+    "gulp-sourcemaps": "^1.1.1",
     "gulp-uglify": "^0.3.1",
     "merge-stream": "^0.1.5",
-    "run-sequence": "^0.3.6",
-    "gulp-order": "^1.1.1",
-    "gulp-sourcemaps": "^1.1.1",
-    "psi": "^0.1.1"
+    "psi": "^0.1.1",
+    "run-sequence": "^0.3.6"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Paul avn Zyl",
-  "license": "MIT",
+  "author": "Paul van Zyl",
+  "license": "ISC"
 }

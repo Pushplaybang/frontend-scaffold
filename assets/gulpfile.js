@@ -53,7 +53,7 @@ var sourcemaps   = require('gulp-sourcemaps'); 				// https://github.com/florido
 var psi 		 = require('psi'); 							// https://github.com/addyosmani/psi/
 
 /* PSI Setup */
-var $site 		 = 'http://nonacreative.com';
+var $site 		 = 'http://movingtactics.co.za/';
 var $strat 		 = 'desktop';
 
 /* 
@@ -94,8 +94,10 @@ gulp.task('sass', function() {
 	return gulp.src(dirs.sass+'*.scss')
 	.pipe(sass({ 
 		style: 'compressed', 
-		sourcemap: true, 
+		sourcemap: true,
+		sourcemapPath: '../assets/sass', 
 		errLogToConsole: false,
+		cacheLocation: 'sass/',
         onError: function(err) {
             return notify().write(err);
         }}))
@@ -103,7 +105,6 @@ gulp.task('sass', function() {
 	.pipe(rename({suffix: '.min'}))
 	.pipe(gulp.dest( dirs.publicCss ))
 	.pipe(notify({ message: 'Front End Sass task complete' }));
-
 });
 
 
@@ -187,33 +188,43 @@ gulp.task('default',['sass', 'scripts', 'images', 'watch'], function() {});
 	and then include them in the project as below.
 
 */
-gulp.task('buildit',function() {
-	/* Essential JS Libraries */
+
+/* Essential SASS Libraries */
+gulp.task('setupStyle', function() {
 	var normalize   = gulp.src(dirs.bower+'normalize-css/normalize.css').pipe(rename({basename:'_normalize',extname:'.scss'})).pipe(gulp.dest(dirs.sassLib));	
 	var knife 	    = gulp.src(dirs.bower+'knife/_knife.sass').pipe(gulp.dest(dirs.sassLib));
 	var susy   		= gulp.src(dirs.bower+'susy/sass/**/*').pipe(gulp.dest(dirs.sassLib+'susy'));
 	var breakpoint  = gulp.src(dirs.bower+'compass-breakpoint/stylesheets/**/*').pipe(gulp.dest(dirs.sassLib+'breakpoint'));
 
-	/* Essential JS Libraries */
+	return merge(normalize, knife, susy, breakpoint);
+});
+
+/* Essential JS Libraries */
+gulp.task('setupJs',function() {
 	var jq          = gulp.src(dirs.bower+'jquery/dist/jquery.js').pipe(gulp.dest(dirs.jsLib));
 	var underscores = gulp.src(dirs.bower+'underscore/underscore.js').pipe(gulp.dest(dirs.jsLib));
 	var velocity    = gulp.src(dirs.bower+'velocity/jquery.velocity.js').pipe(gulp.dest(dirs.jsLib));
 	var velocityui  = gulp.src(dirs.bower+'velocity/velocity.ui.js').pipe(gulp.dest(dirs.jsLib));
 	var fastclick   = gulp.src(dirs.bower+'fastclick/lib/fastclick.js').pipe(gulp.dest(dirs.jsLib));
 
-	/* Essential Polyfils */
+	return merge( jq, underscores, velocity, velocityui, fastclick);
+});
+
+/* Essential Polyfils */
+gulp.task('setupPolyfills',function() {
 	var support 	= gulp.src(dirs.jsSupport+'**/*.js').pipe(gulp.dest(dirs.publicJs+'support/'));
 
-	/* Fonts and Icons */
-	var fontsA 		= gulp.src(dirs.bower+'font-awesome/fonts/*').pipe(gulp.dest(dirs.publicCss+'fonts/'));
-	var fontAwesome = gulp.src(dirs.bower+'font-awesome/css/font-awesome.css').pipe(rename({basename:'_font-awesome',extname: 'scss'})).pipe(gulp.dest(dirs.sassLib));
-
-	/* Images and favicons */
-	var favicons 	= gulp.src(dirs.fav+'*').pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })).pipe(gulp.dest(dirs.publicFav));
-	var images 		= gulp.src(dirs.img+'*').pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })).pipe(gulp.dest(dirs.publicImg));
-
-	return merge(normalize, knife, susy, breakpoint, jq, underscores, velocity, velocityui, fastclick, support, fontAwesome, fontsA, favicons, images);
+	return support;
 });
+
+/* Fonts and Icons */
+gulp.task('setupFonts', function() {
+    var fontsA 		= gulp.src(dirs.bower+'font-awesome/fonts/*').pipe(gulp.dest(dirs.publicCss+'fonts/'));
+    var fontAwesome = gulp.src(dirs.bower+'font-awesome/css/font-awesome.css').pipe(rename({basename:'_font-awesome',extname: 'scss'})).pipe(gulp.dest(dirs.sassLib));
+});
+
+gulp.task('buildit',['setupStyle','setupJs','setupPolyfills','setupFonts','images'], function() {});
+
 
 
 
