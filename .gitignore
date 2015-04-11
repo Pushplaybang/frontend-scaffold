@@ -6,10 +6,10 @@ config.codekit
 /assets/bower_components/
 /assets/node_modules/
 /assets/sass/lib
-/assets/js/lib/*
-/assets/js/lib/*
-/assets/js/build/*
-
+/assets/js/lib
+/assets/js/lib
+/assets/js/build
+/assets/js/plugins
 
 ### OSX ###
 .DS_Store
