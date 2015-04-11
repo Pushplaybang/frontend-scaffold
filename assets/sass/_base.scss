@@ -1,14 +1,4 @@
-/* This File Compiles all the partials for base.css, */
-
-/*Libraries */
-@import 'lib/_knife.sass';
-@import 'lib/breakpoint/_breakpoint.scss';
-@import 'lib/susy/_susy.scss';
-
-/* Setup */
-@import '_setup_variables.scss';
-@import '_setup_mixins.scss';
-@import '_setup_classes.scss';
+/* This File Compiles all the partials for base.css, early general styles that can be overwritten in specific layouts. */
 
 // Essential components
 @import 'lib/_normalize.scss';

@@ -1,19 +1,7 @@
 /* This File Compiles all the Layout partials for Layout.css, */
 
-/*Libraries */
-@import 'lib/_knife.sass';
-@import 'lib/breakpoint/_breakpoint.scss';
-@import 'lib/susy/_susy.scss';
 
-/* Setup */
-@import '_setup_variables.scss';
-@import '_setup_mixins.scss';
-@import '_setup_classes.scss';
-
-/* General Layout */
-
-
-/* Page Specific */
+@import 'layout/_general.scss'
 
 
 /*
@@ -24,4 +12,4 @@
 
 */
 
-@import 'layout/shame.scss';
+@import 'layout/_shame.scss';
