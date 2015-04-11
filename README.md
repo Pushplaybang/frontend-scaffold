@@ -3,7 +3,7 @@ frontend-scaffold
 
 just a personal front end starter setup with bower / grunt / and tastey bits I often use. 
 
-Make sure you have `Ruby, SASS, NPM, GRUNT & BOWER` installed.
+Make sure you have `NPM, GRUNT & BOWER` installed.
 
 run **all** of the following to get started (from inside the assets folder) : 
 
@@ -40,6 +40,9 @@ Note that the following folders are cleaned by grunt, so adding files directly o
 * The whole public folder.
 * the JS libs and plugin folder
 * the sass libs folder
+
+### Important Changes 
+I've recently changed to using grunt-sass that uses the **libsass** node module node-sass rather than the original ruby compiler for sass that was used before, this is not without its caveats.
 
 
 
