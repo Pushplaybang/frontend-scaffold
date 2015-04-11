@@ -243,7 +243,7 @@ module.exports = function(grunt) {
 		        files: {
 		            'jquery.js'			: 'jquery/dist/jquery.js',
 		            'underscore.js'		: 'underscore/underscore.js',
-		            'velocity.js'		: 'velocity/jquery.velocity.js',
+		            'velocity.js'		: 'velocity/velocity.js',
 		            'velocityui.js'		: 'velocity/velocity.ui.js',
 		            // 'fastclick.js'		: 'fastclick/:main'
 		        }
