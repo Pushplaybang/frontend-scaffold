@@ -53,8 +53,8 @@ var sourcemaps   = require('gulp-sourcemaps'); 				// https://github.com/florido
 var psi 		 = require('psi'); 							// https://github.com/addyosmani/psi/
 
 /* PSI Setup */
-var $site 		 = 'http://movingtactics.co.za/';
-var $strat 		 = 'desktop';
+var $site 		 = 'http://nonacreative.com/';  // make this the url to your staging site
+var $strat 		 = 'desktop';	// desktop or mobile tests
 
 /* 
 
